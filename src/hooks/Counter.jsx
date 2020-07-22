@@ -1,23 +1,32 @@
-import React, { useState, Fragment } from "react";
+import React, { useState, Fragment, useEffect } from "react";
 
 function Counter(props) {
   /*   const array = useState(0);
   const count = array[0]; //Equvalent to this.state.count in a class component
   const setState = array[1]; // This.setState()
   */
-  const [count, setState] = useState(0);
+  const [count, setCount] = useState(0);
+  const [name, setName] = useState("");
 
-  if (count == 0) {
-    const [name, setName] = useState("");
-  }
+  useEffect(() => {
+    document.title = `${name} has clicked ${count} times!`;
+
+    return () => {
+      console.log("Clean up!");
+    };
+  }, [count, name]);
+
+  // componentDidMount
+  // componentDidUpdate
+  // componentDidUnmount
 
   return (
     <Fragment>
       <input type="text" onChange={(e) => setName(e.target.value)} />
       <div>
-        {name} has clicked {count} times
+        {name} has clicked {count} times!
       </div>
-      <button onClick={() => setState(count + 1)}>Increase</button>
+      <button onClick={() => setCount(count + 1)}>Increase</button>
     </Fragment>
   );
 }
